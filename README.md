@@ -4,7 +4,7 @@ EEPROM dumps from Aardbei
 I have a 2014 Toyota Yaris 1.5 LE (XP130) and the stock instrument cluster doesn't have a tachometer.
 This bothered me.
 
-I managed to obtain (thanks to Ebay) the instrument cluster from a Lithuanian Yaris 1.3 Sport (NSP130) which miraculously had the golden combo of both speedometer markings in MPH and a tachometer.
+I managed to obtain (thanks to Ebay) the instrument cluster from a Lithuanian Yaris 1.3 Sport (NSP130) which miraculously had the golden combo of both a tachometer and speedometer markings in MPH.
 I hoped it would be a nice and easy drop-in replacement and it *almost* was. The tachometer worked right off the bat, but the new cluster didn't properly display the current gear, the thermometer displayed temperatures in Celsius, and whenever I turned on the headlights the backlights on the climate controls and radio would turn off. I was also surprised to see that the odometer reading was wrong.
 
 Luckily, I found some documentation online of people who have successfully reprogrammed the dash cluster EEPROM to correct the odometer reading after replacing the cluster.
