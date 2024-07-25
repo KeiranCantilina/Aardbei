@@ -13,7 +13,7 @@ See this tutorial for modifying the programmer: https://www.youtube.com/watch?v=
 
 After dumping the EEPROM from both the old and new instrument clusters (which can be found in this repository), I corrected the odometer reading based on this forum post: https://www.toyotanation.com/threads/diy-odometer-reprogramming-for-swapped-clusters.1504706/. Of course, I first tried to take the EEPROM from my old cluster and swap it into the new cluster. Everything worked except for the tachometer T___T
 
-After a few hours of staring at a hex diff comparing the old and new EEPROM dumps and systematically experimenting with swapping chunks of the code, I figured out how to get everything to work exactly like my old instrument cluster except with the addition of a working tachometer. This was very satisfying. 
-The bin file I flashed to the new cluster can be found in this repository as "New Aardbei Dash EEPROM Successfully Corrected.bin".
+After a few hours of staring at a hex diff comparing the old and new EEPROM dumps and systematically experimenting with swapping chunks of the code, I figured out how to get the tachometer to work and get the temperature to display in Farenheit. I'm continuing to work on figuring out how to get the current gear to display properly, and the radio lights are still weird.
+The bin file I flashed to the new cluster can be found in this repository as "New Aardbei Dash EEPROM attempt 13.bin".
 
 I hope this one day helps somebody else foolish enough to do the same thing!
