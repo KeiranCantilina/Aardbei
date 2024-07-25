@@ -1,0 +1,83 @@
+38583-38413
+225681+170
+
+225681
+Hex
+D D A 9 7 E
+
+In packet:
+Hex
+ A9 7F FF DD
+
+New mileage:
+225851
+
+D D A 7 A E
+
+In new packet:
+A7 AF FF DD
+
+Attempt 1:
+Copied block from line 20 to line E0 from old to new. (10 is also copied and contains OD reading)
+Result: 
+Still no tach; behavior is apparently identical to old dash.
+
+Attempt 2:
+Copied block from old to new line 20 to line 60 FF FF FF FF FF FF section (column 5)
+Result:
+Behaves exactly like new device. Yes tach, Celsius temp, no transmission position, no radio lights.
+Conclusion: this line is not responsible for features we care about. The only lines that matter are from 60 column 0C to line E0.
+
+Attempt 3: Same as attempt 2 but copy line 60 column 0C to line 90 column 07 from old to attempt 2.
+Result:
+Same result as Attempt 2. We now know the features we care about are from line 90 column 09 to line E0.
+
+Attempt 4: Same as attempt 3 but copy line 90 column 09 to line B0 column 0D
+Result: Same as attempt 3 except NO TACH!
+This means the tach feature is somewhere from line 90 column 09 to line B0 column 0D
+
+Attempt 5: Same as attempt 1 but Line 90 column 09 to line B0 column 0D is copied from new dash EEPROM to attempt 1.
+Result: SUCCESS with tach but no speedo
+
+Attempt 6: Same as attempt 1 but Line 20 to line 60 column 05 is copied in from new and tach line (Line 90 column 09 to line B0 column 0D) is copied in from new.
+Result:
+
+Attempt 7: Same as new but old is inserted from end of tach line (B0 column 0E) to line E0.
+Result: Same as Attempt 5, but now things beep properly! Clearly speedo is somewhere below the tach line.
+
+Attempt 8: Same as attempt 7 but we replace line B0 column 0E to line C0 column 0B with the corresponding section from new.
+Result: Behavior is identical to new dash. Therefore, we know that speedo, temp units, lights, and shift position are somewhere in B0 column 0E to line C0 column 0B.
+
+Attempt 9: Same as attempt 7 but we replace line B0 column 0E to line C0 column 05 with the corresponding section from new.
+Result: Behavior is identical to new dash. Therefore, we know that speedo, temp units, lights, and shift position are somewhere in line B0 column 0E to line C0 column 05.
+
+Sanity Check attempt 10: Same as new but old is inserted from line B0 column 0E to line C0 column 05.
+We expect results identical to Attempt 7. 
+Result: Behaves identical to attempt 7.
+
+Attempt 11: Insert line B0 column 0E to line C0 column 03 from new to attempt 10.
+Result: Behaves like new dash :(
+
+So the only thing that maters is the 6 bytes from line B0 column 0E to line C0 column 05.
+
+Old dash: D5 5C D5 5C D5 5C
+Binary: 1101010101011100 or                                                        11010101 01011100 F, no speedo
+New dash: EF DC EF DC EF DC
+Binary: 1110111111011100 or                                                        11101111 11011100 C, yes speedo
+Only 5 bits are different. maybe they're bools.
+
+For attempt 12, let's try old dash but change one bit:                             11010101 11011100 F?, no speedo
+So D5 DC D5 DC D5 DC
+
+Result: Behaves like Attempt 7. Same as old with tach but no speedo.
+
+Attempt 13: Schwip schwap. EF 5C EF 5C EF 5C                                       11101111 01011100 F, yes speedo
+Result: Same as New except temperature is in F! And speedo works. Seems like they are bools? Only thing left to fix is gear shift and lights.
+
+Attempt 14: Keep second byte the same, play with first byte. 
+            Byte diff is 11XXX1X1 
+            Try 11111111 01011100 FF 5C
+Result:
+
+Attempt 15: 11000101 01011100 C5 5C
+Result:
